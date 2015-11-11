@@ -20,7 +20,14 @@ python -m pip install -r requirements.txt
 
 Use:
 ===============
+Twitter:
 ```
 from twitter_script import search_twitter
 search_twitter('china disaster")
 ```
+Reddit:
+```
+from reddit_script import search_reddit
+search_reddit('china disaster")
+```
+All extracted content is stored in databases
