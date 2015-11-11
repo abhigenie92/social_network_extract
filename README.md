@@ -17,3 +17,10 @@ git clone https://github.com/abhigenie92/social_network_extract
 cd content_gen
 python -m pip install -r requirements.txt
 ```
+
+Use:
+===============
+```
+from twitter_script import search_twitter
+search_twitter('china disaster")
+```
