@@ -60,8 +60,8 @@ def write_data_to_db(text_tweet,text_date,text_time,text_username,text_profilena
 	conn.commit()
 	conn.close()
 	return db_name
-
-search='rajahmundry stampede'
-db_name=write_data_to_db(*get_twitter_data(search))
-plot_date_time_graph(db_name,search.title().replace(" ",""))
-#git commit git status git add  git push git pull AAA
+def search_twitter(query):
+	db_name=write_data_to_db(*get_twitter_data(query))
+	plot_date_time_graph(db_name,search.title().replace(" ",""))
+if __name__ == '__main__':
+	search_twitter('china disaster');
