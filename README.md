@@ -19,8 +19,9 @@ python -m pip install -r requirements.txt
 ```
 
 Use:
-Note please add the directory to your search path.
 ===============
+Note please add the directory to your search path.
+
 Twitter:
 ```
 from twitter_script import search_twitter
