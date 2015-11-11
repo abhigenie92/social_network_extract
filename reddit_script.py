@@ -43,6 +43,9 @@ def get_data_reddit(search):
 		;url.append(post.url); permalink.append(post.permalink)
 	print "Reddits extracted: "+str(len(title))	
 	return title,subreddit,selftext_html,ups,created_date,created_time,num_comments,score,url,permalink
+def search_reddit(query):
+	write_data_to_db(*get_data_reddit(search))   #* used to unpack values
 
-search='china stampede'
-write_data_to_db(*get_data_reddit(search))   #* used to unpack values
+if __name__ == '__main__':
+	search_query='china stampede'
+	search_reddit(search_query)
