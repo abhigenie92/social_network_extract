@@ -19,6 +19,7 @@ python -m pip install -r requirements.txt
 ```
 
 Use:
+Note please add the directory to your search path.
 ===============
 Twitter:
 ```
