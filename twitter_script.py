@@ -4,7 +4,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
 from scrollDownHtmlCode import return_html_code
-from twitter_datetimegraph import plot_date_time_graph 
+#from twitter_datetimegraph import plot_date_time_graph 
 import sys,requests,retweetsAndFavExtract,sqlite3,os
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -62,6 +62,6 @@ def write_data_to_db(text_tweet,text_date,text_time,text_username,text_profilena
 	return db_name
 def search_twitter(query):
 	db_name=write_data_to_db(*get_twitter_data(query))
-	plot_date_time_graph(db_name,search.title().replace(" ",""))
+	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 if __name__ == '__main__':
 	search_twitter('china disaster');
