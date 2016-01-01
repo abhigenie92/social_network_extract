@@ -20,8 +20,10 @@ python -m pip install -r requirements.txt
 
 Use:
 ===============
-Note please add the directory to your search path.
-
+Note please add the directory to your search path. An example is shown below:
+```import sys
+sys.path.insert(0, "<path to social_network_extract>")
+```
 Twitter:
 ```
 from twitter_script import search_twitter
