@@ -12,9 +12,12 @@ Installation:
 ```
 git clone https://github.com/abhigenie92/social_network_extract
 ```
-3.cd into this folder and run the following command from terminal
+3.cd into cloned folder 
 ```
-cd content_gen
+cd social_network_extract
+```
+4. and run the following command from terminal
+```
 python -m pip install -r requirements.txt
 ```
 
