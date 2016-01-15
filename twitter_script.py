@@ -51,7 +51,7 @@ def get_twitter_data(query):
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
 	db_name=('twitter '+search.title().replace(" ","")+'_'+str(datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
-	path='data\\'+db_name
+	path='data'+os.path.sep+db_name
 	conn = sqlite3.connect(path)
 	table_name=search.title().replace(" ","")
 	conn.execute('CREATE TABLE '+table_name+' (content text,date_posted text,time_posted text,username \
@@ -65,9 +65,9 @@ def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_pr
 	return db_name
 def search_twitter(query):
 	db_name=write_data_to_db(*get_twitter_data(query))
-	print "Data stored at - ./data/"+db_name
+	print 'Data stored at - .'+os.path.sep+'data'+os.path.sep+ db_name
 	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('china disaster');
+	search_twitter('nude miranda kerr');
