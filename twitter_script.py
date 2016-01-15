@@ -17,6 +17,7 @@ def get_twitter_data(query):
 	url='https://twitter.com/search?q='+search+'&src=typd&lang=en'
 	#req = requests.get(url)
 	#soup = BeautifulSoup(req.content)
+	print "Opening Firefox Browser, minimize in case you want."
 	html_full=return_html_code(url)
 	soup = BeautifulSoup(html_full, "html.parser")
 	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
@@ -63,6 +64,7 @@ def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_pr
 	return db_name
 def search_twitter(query):
 	db_name=write_data_to_db(*get_twitter_data(query))
+	print "Data stored at - ./data/"+db_name
 	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 if __name__ == '__main__':
 	directory='data' # stores the output
