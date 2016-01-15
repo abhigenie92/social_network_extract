@@ -40,4 +40,4 @@ search_reddit('china disaster")
 ```
 All extracted content is stored in databases.
 
-```Database name Format: <social_network>_MM-DD_HH-MM-SS.db```
+Database name Format: <social_network>_MM-DD_HH-MM-SS.db
