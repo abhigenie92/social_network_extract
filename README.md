@@ -12,7 +12,7 @@ Installation:
 ```
 git clone https://github.com/abhigenie92/social_network_extract
 ```
-3.cd into cloned folder 
+3. cd into cloned folder 
 ```
 cd social_network_extract
 ```
