@@ -1,30 +1,31 @@
 #Things to fix still
 #1.Scroll down to get unlimited tweets-DONE
-#Fixed other language profile names
+#2.Fix other language profile names-DONE
+#3.Fix remove of photos thumbnails as tweets-DONE
 from bs4 import BeautifulSoup
 from datetime import datetime
 from scrollDownHtmlCode import return_html_code
+from pprint import pprint
 #from twitter_datetimegraph import plot_date_time_graph 
-import sys,requests,retweetsAndFavExtract,sqlite3,os
+import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-def get_twitter_data(search):
-	search = search.replace(" ","%20")	
+def get_twitter_data(query):
+	search = query.replace(" ","%20")	
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	url='https://twitter.com/search?q='+search+'&src=typd&lang=en'
 	#req = requests.get(url)
 	#soup = BeautifulSoup(req.content)
 	html_full=return_html_code(url)
 	soup = BeautifulSoup(html_full, "html.parser")
-	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet'})
+	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
 	for index,tweet in enumerate(alltweets):
 		#Text of tweet
 		html_tweet= tweet.find_all("p", class_="TweetTextSize js-tweet-text tweet-text")
-		print html_tweet
-		print "new" 
-		print html_tweet[0]
-
+		#print html_tweet
+		#print "new" 
+		#print html_tweet[0]
 		text_tweet.append(''.join(html_tweet[0].findAll(text=True)))
 		#print text_tweet	
 		#Date and time of tweet
@@ -39,14 +40,14 @@ def get_twitter_data(search):
 		html_profilename=tweet.find_all("strong",class_="fullname js-action-profile-name show-popup-with-id")
 		if len(html_profilename)==0:
 				html_profilename=tweet.find_all("strong",class_="fullname js-action-profile-name show-popup-with-id fullname-rtl")
-		print html_profilename
+		#print html_profilename
 		text_profilename.append(''.join(html_profilename[0].findAll(text=True)))
 		#Retweets and fav
 		map(lambda l,v: l.append(v), (text_retweet, text_fav), retweetsAndFavExtract.get_fav_retweets(tweet))
 	print "Tweets extracted: "+str(len(alltweets))
-	return text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
+	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
 
-def write_data_to_db(text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
+def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
 	db_name=('twitter '+search.title().replace(" ","")+'_'+str(datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
 	path='data\\'+db_name
 	conn = sqlite3.connect(path)
@@ -64,4 +65,6 @@ def search_twitter(query):
 	db_name=write_data_to_db(*get_twitter_data(query))
 	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 if __name__ == '__main__':
+	directory='data' # stores the output
+	if not os.path.exists(directory): os.makedirs(directory)
 	search_twitter('china disaster');
