@@ -27,15 +27,21 @@ def return_html_code(url):
 	wait = WebDriverWait(driver, 10)
 	wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
 	# scroll down to the last tweet until there is no more tweets loaded
+	print "Scrolling to retrieve all tweets..."
+	num_rightnow=range(50,9500000,50)
+	z=0
 	while True:
 	    tweets = driver.find_elements_by_css_selector("li[data-item-id]")
 	    number_of_tweets = len(tweets)
-	    print number_of_tweets
+	    if number_of_tweets > num_rightnow[z]:
+	    	print num_rightnow[z],
+	    	z=z+1
 	    driver.execute_script("arguments[0].scrollIntoView();", tweets[-1])
 	    try:
 	        wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
 	    except TimeoutException:
 	        break
+	print number_of_tweets       
 	html_full_source=driver.page_source
 	driver.close()
 	return html_full_source

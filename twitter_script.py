@@ -2,6 +2,7 @@
 #1.Scroll down to get unlimited tweets-DONE
 #2.Fix other language profile names-DONE
 #3.Fix remove of photos thumbnails as tweets-DONE
+#4.Better way to print the progress-?
 from bs4 import BeautifulSoup
 from datetime import datetime
 from scrollDownHtmlCode import return_html_code
