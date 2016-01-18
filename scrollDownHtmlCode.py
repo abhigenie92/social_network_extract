@@ -28,8 +28,8 @@ def return_html_code(url):
 	wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
 	# scroll down to the last tweet until there is no more tweets loaded
 	print "Scrolling to retrieve all tweets..."
-	num_rightnow=range(50,9500000,50)
-	z=0
+	num_rightnow=range(100,9500000,100)
+	z=1
 	while True:
 	    tweets = driver.find_elements_by_css_selector("li[data-item-id]")
 	    number_of_tweets = len(tweets)
@@ -41,7 +41,9 @@ def return_html_code(url):
 	        wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
 	    except TimeoutException:
 	    	try:
+	    		print"\nLoading taking too long. Waiting to load.."
 	    		wait = WebDriverWait(driver, 10)
+	    		wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
 	    	except TimeoutException:
 	       		 break
 	print number_of_tweets       
