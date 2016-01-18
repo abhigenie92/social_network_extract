@@ -6,7 +6,7 @@ Please get permission from twitter before extracting the data as this script scr
 
 Installation:
 ===============
-1. Install Anaconda Python 2.7 64 bit distribution Link: http://continuum.io/downloads#all
+1. Make sure to you have python 2.7 and Firefox Browser installed.
 2. Clone to your desktop
 
 ```
