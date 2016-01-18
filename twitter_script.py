@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from scrollDownHtmlCode import return_html_code
 from pprint import pprint
+from unidecode import unidecode
+
 #from twitter_datetimegraph import plot_date_time_graph 
 import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb
 reload(sys)
@@ -22,13 +24,19 @@ def get_twitter_data(query):
 	html_full=return_html_code(url)
 	soup = BeautifulSoup(html_full, "html.parser")
 	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
+	#alltweets = soup.find_all(attrs={'role' : 'presentation','class':"original-tweet-container"})
 	for index,tweet in enumerate(alltweets):
 		#Text of tweet
 		html_tweet= tweet.find_all("p", class_="TweetTextSize js-tweet-text tweet-text")
 		#print html_tweet
 		#print "new" 
 		#print html_tweet[0]
-		text_tweet.append(''.join(html_tweet[0].findAll(text=True)))
+		try:
+			text=''.join(html_tweet[0].findAll(text=True))
+		except Exception as e:
+			continue
+		text=unidecode(text.replace('\n',''))
+		text_tweet.append(text)
 		#print text_tweet	
 		#Date and time of tweet
 		html_date=tweet.find_all("a", class_="tweet-timestamp js-permalink js-nav js-tooltip")
@@ -46,7 +54,8 @@ def get_twitter_data(query):
 		text_profilename.append(''.join(html_profilename[0].findAll(text=True)))
 		#Retweets and fav
 		map(lambda l,v: l.append(v), (text_retweet, text_fav), retweetsAndFavExtract.get_fav_retweets(tweet))
-	print "Tweets extracted: "+str(len(alltweets))
+	print "Tweets extracted:",str(len(alltweets))
+	print "Date of most old tweet:",str(text_date[len(text_date)-1])
 	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
@@ -70,4 +79,4 @@ def search_twitter(query):
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('nude miranda kerr');
+	search_twitter('Alcoholics Anonymous');

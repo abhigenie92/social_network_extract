@@ -11,7 +11,7 @@ socket.getaddrinfo('localhost', 8080)                     #takes care of error i
 
 def write_data_to_db(search,title,subreddit,selftext_html,ups,created_date,created_time,num_comments,score,url,permalink):
 	db_name=('reddit '+search.title().replace(" ","")+'_'+str(datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
-	path='data\\'+db_name
+	path='data'+os.path.sep+db_name
 	print path
 	conn = sqlite3.connect(path)
 	table_name=search.title().replace(" ","")
@@ -47,7 +47,7 @@ def search_reddit(query):
 	write_data_to_db(*get_data_reddit(query))   #* used to unpack values
 
 if __name__ == '__main__':
-	directory='./data'
+	directory='data'
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 	search_query='china stampede'

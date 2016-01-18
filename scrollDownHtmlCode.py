@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-import urllib,requests,unidecode,lxml
+import urllib,requests,unidecode,lxml,pdb
 
 class wait_for_more_than_n_elements_to_be_present(object):
     def __init__(self, locator, count):
@@ -40,7 +40,10 @@ def return_html_code(url):
 	    try:
 	        wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
 	    except TimeoutException:
-	        break
+	    	try:
+	    		wait = WebDriverWait(driver, 10)
+	    	except TimeoutException:
+	       		 break
 	print number_of_tweets       
 	html_full_source=driver.page_source
 	driver.close()
