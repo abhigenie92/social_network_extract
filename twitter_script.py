@@ -79,5 +79,5 @@ def search_twitter(query):
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	#search_twitter('Alcoholics Anonymous');
-	search_twitter('Error Check')
+	search_twitter('Alcoholics Anonymous')
+	#search_twitter('Error Check')
