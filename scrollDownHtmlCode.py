@@ -32,7 +32,7 @@ def return_html_code(url):
     actions = ActionChains(driver)
 	
     # initial wait for the tweets to load
-    wait = WebDriverWait(driver, 30)
+    wait = WebDriverWait(driver, 130)
     wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
     # scroll down to the last tweet until there is no more tweets loaded
     # scroll down to the last tweet until there is no more tweets loaded
