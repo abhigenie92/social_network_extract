@@ -20,6 +20,7 @@ class wait_for_more_than_n_elements_to_be_present(object):
         except StaleElementReferenceException:
             return False
 def return_html_code(url):
+    print url
     dcap = dict(webdriver.DesiredCapabilities.PHANTOMJS)
     dcap["phantomjs.page.settings.userAgent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"
 
@@ -41,9 +42,10 @@ def return_html_code(url):
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        if number_of_tweets > num_rightnow[z]:
-	    print num_rightnow[z],
-	    z=z+1
+        print number_of_tweets
+        #if number_of_tweets > num_rightnow[z]:
+	 #   print num_rightnow[z],
+	 #   z=z+1
         # move to the last tweet
         driver.execute_script("arguments[0].scrollIntoView(true);", tweets[-1])
         actions.move_to_element(tweets[-1]).perform()
