@@ -51,6 +51,8 @@ def return_html_code(url):
             wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
         except TimeoutException:
             break
-     return html_full_source
+    html_full_source=driver.page_source    
+    driver.close()
+    return html_full_source
 
 	
