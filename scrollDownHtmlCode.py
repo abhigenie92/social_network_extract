@@ -29,13 +29,14 @@ def return_html_code(url):
     driver.get(url)
 
     actions = ActionChains(driver)
-
+	
     # initial wait for the tweets to load
     wait = WebDriverWait(driver, 30)
     wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
     # scroll down to the last tweet until there is no more tweets loaded
     # scroll down to the last tweet until there is no more tweets loaded
     print "Scrolling to retrieve all tweets..."
+    z=0
     num_rightnow=range(100,9500000,100)
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
