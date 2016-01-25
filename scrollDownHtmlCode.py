@@ -32,7 +32,7 @@ def return_html_code(url):
     actions = ActionChains(driver)
 	
     # initial wait for the tweets to load
-    wait = WebDriverWait(driver, 130)
+    wait = WebDriverWait(driver, 600)
     wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
     # scroll down to the last tweet until there is no more tweets loaded
     # scroll down to the last tweet until there is no more tweets loaded
@@ -42,10 +42,10 @@ def return_html_code(url):
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        print number_of_tweets
-        #if number_of_tweets > num_rightnow[z]:
-	 #   print num_rightnow[z],
-	 #   z=z+1
+        #print number_of_tweets
+        if number_of_tweets > num_rightnow[z]:
+        	print num_rightnow[z],
+        	z=z+1
         # move to the last tweet
         driver.execute_script("arguments[0].scrollIntoView(true);", tweets[-1])
         actions.move_to_element(tweets[-1]).perform()
