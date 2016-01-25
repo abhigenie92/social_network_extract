@@ -20,6 +20,7 @@ class wait_for_more_than_n_elements_to_be_present(object):
             return False
 
 def return_html_code(url):
+	print url
 	vdisplay =Xvfb()
 	vdisplay.start()
 	driver = webdriver.Firefox()
@@ -35,6 +36,7 @@ def return_html_code(url):
 	while True:
 	    tweets = driver.find_elements_by_css_selector("li[data-item-id]")
 	    number_of_tweets = len(tweets)
+	    print number_of_tweets
 	    if number_of_tweets > num_rightnow[z]:
 	    	print num_rightnow[z],
 	    	z=z+1
