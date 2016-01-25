@@ -20,7 +20,7 @@ class wait_for_more_than_n_elements_to_be_present(object):
         except StaleElementReferenceException:
             return False
 def return_html_code(url):
-    dcap = dict(DesiredCapabilities.PHANTOMJS)
+    dcap = dict(webdriver.DesiredCapabilities.PHANTOMJS)
     dcap["phantomjs.page.settings.userAgent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"
 
     driver = webdriver.PhantomJS(desired_capabilities=dcap)
