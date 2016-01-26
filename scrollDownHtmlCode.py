@@ -5,9 +5,7 @@ from selenium.common.exceptions import StaleElementReferenceException, TimeoutEx
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
-import urllib,requests,unidecode,lxml,pdb
-from pyvirtualdisplay import Display
-from xvfbwrapper import Xvfb
+import urllib,requests,unidecode,lxml,pdb,time
 class wait_for_more_than_n_elements_to_be_present(object):
     def __init__(self, locator, count):
         self.locator = locator
@@ -20,7 +18,6 @@ class wait_for_more_than_n_elements_to_be_present(object):
         except StaleElementReferenceException:
             return False
 def return_html_code(url):
-    print url
     dcap = dict(webdriver.DesiredCapabilities.PHANTOMJS)
     dcap["phantomjs.page.settings.userAgent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"
 
@@ -29,26 +26,20 @@ def return_html_code(url):
 
     driver.get(url)
 
-    actions = ActionChains(driver)
-	
     # initial wait for the tweets to load
-    wait = WebDriverWait(driver, 600)
+    wait = WebDriverWait(driver, 30)
     wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
     # scroll down to the last tweet until there is no more tweets loaded
-    # scroll down to the last tweet until there is no more tweets loaded
-    print "Scrolling to retrieve all tweets..."
-    z=0
-    num_rightnow=range(100,9500000,100)
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        #print number_of_tweets
-        if number_of_tweets > num_rightnow[z]:
-        	print num_rightnow[z],
-        	z=z+1
-        # move to the last tweet
-        driver.execute_script("arguments[0].scrollIntoView(true);", tweets[-1])
-        actions.move_to_element(tweets[-1]).perform()
+        print(number_of_tweets)
+
+        # move to the top and then to the bottom 5 times in a row
+        for _ in range(5):
+            driver.execute_script("window.scrollTo(0, 0)")
+            driver.execute_script("arguments[0].scrollIntoView(true);", tweets[-1])
+            time.sleep(0.5)
 
         try:
             wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
