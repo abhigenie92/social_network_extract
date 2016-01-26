@@ -21,7 +21,7 @@ bash install_phantomjs.sh
 ```
 On Windows machines, download PhantomJS and place `.exe` in the folder social_network_extract to work.
 
-4 . and run the following command from terminal
+4 . Run the following command from terminal
 ```
 python -m pip install -r requirements.txt
 ```
