@@ -9,19 +9,15 @@ Installation:
 ```
 git clone https://github.com/abhigenie92/social_network_extract
 ```
-2 . cd into cloned folder 
-```
-cd social_network_extract
-```
-3 . Pre-requisites:
+2 . Pre-requisites:
 
-Make sure to you have python 2.7 and PhantomJS installed. For installing PhantomJS on linux machines use the script 'install_phantomjs.sh'.
+Make sure to you have `python 2.7` and `PhantomJS` installed. For installing `PhantomJS` on `linux` machines use the script 'install_phantomjs.sh'.
 ```
 bash install_phantomjs.sh
 ```
-On Windows machines, download PhantomJS and place `.exe` in the folder social_network_extract to work.
+On `Windows` machines, download `PhantomJS` and place `.exe` in the folder `social_network_extract` to work.
 
-4 . Run the following command from terminal
+3 . Run the following command from terminal in folder `social_network_extract`
 ```
 python -m pip install -r requirements.txt
 ```
