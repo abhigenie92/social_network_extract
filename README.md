@@ -5,20 +5,22 @@ Please get permission from twitter before extracting the data as this script scr
 
 Installation:
 ===============
-1 . Make sure to you have python 2.7 and PhantomJS installed. For installing PhantomJS on linux machines use the script 'install_phantomjs.sh'.
+1 . Clone to your desktop
+```
+git clone https://github.com/abhigenie92/social_network_extract
+```
+2 . cd into cloned folder 
+```
+cd social_network_extract
+```
+3 . Pre-requisites:
+
+Make sure to you have python 2.7 and PhantomJS installed. For installing PhantomJS on linux machines use the script 'install_phantomjs.sh'.
 ```
 bash install_phantomjs.sh
 ```
 On Windows machines, download PhantomJS and place `.exe` in the folder social_network_extract to work.
 
-2 . Clone to your desktop
-```
-git clone https://github.com/abhigenie92/social_network_extract
-```
-3 . cd into cloned folder 
-```
-cd social_network_extract
-```
 4 . and run the following command from terminal
 ```
 python -m pip install -r requirements.txt
