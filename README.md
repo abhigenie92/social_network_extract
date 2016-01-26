@@ -11,6 +11,7 @@ Installation:
 bash install_phantomjs.sh
 ```
 On Windows machines, download PhantomJS and place `.exe` in the folder social_network_extract to work.
+
 2. Clone to your desktop
 
 ```
