@@ -3,63 +3,39 @@
 #2.Fix other language profile names-DONE
 #3.Fix remove of photos thumbnails as tweets-DONE
 #4.Better way to print the progress-?
-from bs4 import BeautifulSoup
-from datetime import datetime
 from scrollDownHtmlCode import return_html_code
 from pprint import pprint
-from unidecode import unidecode
-
+from extract_tweets import extract_tweets
 #from twitter_datetimegraph import plot_date_time_graph 
-import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb
+import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb,datetime
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 def get_twitter_data(query):
-	search = query.replace(" ","%20")	
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
-	url='https://twitter.com/search?q='+search+'&src=typd&lang=en'
-	#req = requests.get(url)
-	#soup = BeautifulSoup(req.content)
-	print "Opening Firefox Browser, minimize in case you want."
-	html_full=return_html_code(url)
-	soup = BeautifulSoup(html_full, "html.parser")
-	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
-	#alltweets = soup.find_all(attrs={'role' : 'presentation','class':"original-tweet-container"})
-	for index,tweet in enumerate(alltweets):
-		#Text of tweet
-		html_tweet= tweet.find_all("p", class_="TweetTextSize js-tweet-text tweet-text")
-		#print html_tweet
-		#print "new" 
-		#print html_tweet[0]
-		try:
-			text=''.join(html_tweet[0].findAll(text=True))
-		except Exception as e:
-			continue
-		text=unidecode(text.replace('\n',''))
-		text_tweet.append(text)
-		#print text_tweet	
-		#Date and time of tweet
-		html_date=tweet.find_all("a", class_="tweet-timestamp js-permalink js-nav js-tooltip")
-		time,date=html_date[0]["title"].split(" - ")
-		text_date.append(date)
-		text_time.append(time)
-		#Username of tweeter
-		html_username=tweet.find_all("span",class_="username js-action-profile-name")
-		text_username.append(''.join(html_username[0].findAll(text=True)).replace("@",""))
-		#profile name
-		html_profilename=tweet.find_all("strong",class_="fullname js-action-profile-name show-popup-with-id")
-		if len(html_profilename)==0:
-				html_profilename=tweet.find_all("strong",class_="fullname js-action-profile-name show-popup-with-id fullname-rtl")
-		#print html_profilename
-		text_profilename.append(''.join(html_profilename[0].findAll(text=True)))
-		#Retweets and fav
-		map(lambda l,v: l.append(v), (text_retweet, text_fav), retweetsAndFavExtract.get_fav_retweets(tweet))
-	print "Tweets extracted:",str(len(alltweets))
-	print "Date of most old tweet:",str(text_date[len(text_date)-1])
+	final_date=datetime.date.today()
+	start_date=dateobj = datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
+	search = query.replace(" ","%20")	
+	flag=True
+	while flag:
+		end_date=(start_date+datetime.timedelta(1*365/12))
+		print start_date, end_date
+
+		if end_date > final_date:
+			end_date=(final_date+datetime.timedelta(1))
+			flag=False
+		url='https://twitter.com/search?q='+search+'%20since%3A'+start_date.isoformat()+'%20until%3A'+end_date.isoformat()+'&src=typd&lang=en'
+		html_full=return_html_code(url)
+		if html_full:
+			text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav\
+		 = (x+y for x,y in zip((text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav)\
+		 	, extract_tweets(html_full)))
+
+		start_date=end_date-datetime.timedelta(1)
 	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
-	db_name=('twitter '+search.title().replace(" ","")+'_'+str(datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
+	db_name=('twitter '+search.title().replace(" ","")+'_'+str(datetime.datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
 	path='data'+os.path.sep+db_name
 	conn = sqlite3.connect(path)
 	table_name=search.title().replace(" ","")
@@ -79,5 +55,5 @@ def search_twitter(query):
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('Alcoholics Anonymous')
+	search_twitter('Alcoholics Anonymous Drunk')
 	#search_twitter('Error Check')

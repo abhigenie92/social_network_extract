@@ -27,14 +27,19 @@ def return_html_code(url):
     driver.get(url)
 
     # initial wait for the tweets to load
-    wait = WebDriverWait(driver, 30)
-    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
+    wait = WebDriverWait(driver, 10)
+    try:
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
+    except TimeoutException:
+        return False
     # scroll down to the last tweet until there is no more tweets loaded
+    prev=0
+    print "Scrolling tweets"
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        print(number_of_tweets)
-
+        if round(prev,-2)<round (number_of_tweets,-2): print(number_of_tweets)
+        prev=number_of_tweets
         # move to the top and then to the bottom 5 times in a row
         for _ in range(5):
             driver.execute_script("window.scrollTo(0, 0)")
@@ -45,6 +50,7 @@ def return_html_code(url):
             wait.until(wait_for_more_than_n_elements_to_be_present((By.CSS_SELECTOR, "li[data-item-id]"), number_of_tweets))
         except TimeoutException:
             break
+
     html_full_source=driver.page_source    
     driver.close()
     return html_full_source
