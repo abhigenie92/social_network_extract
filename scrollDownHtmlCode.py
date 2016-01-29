@@ -33,13 +33,15 @@ def return_html_code(url):
     except TimeoutException:
         return False
     # scroll down to the last tweet until there is no more tweets loaded
-    prev=0
+    z=0
+    num_rightnow=range(100,9500000,100)
     print "Scrolling tweets"
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        if round(prev,-2)<round (number_of_tweets,-2): print(number_of_tweets)
-        prev=number_of_tweets
+        if number_of_tweets > num_rightnow[z]:
+            print num_rightnow[z],
+            z=z+1# move to the top and then to the bottom 5 times in a row
         # move to the top and then to the bottom 5 times in a row
         for _ in range(5):
             driver.execute_script("window.scrollTo(0, 0)")
