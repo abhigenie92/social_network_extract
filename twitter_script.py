@@ -38,7 +38,7 @@ def get_twitter_data(query):
 			 = (x+y for x,y in zip((text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav)\
 			 	, extract_tweets(alltweets)))
 
-			start_date=end_date-datetime.timedelta(1)
+		start_date=end_date-datetime.timedelta(1)
 	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
@@ -62,5 +62,5 @@ def search_twitter(query):
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('Alcoholics Anonymous Drunk')
+	search_twitter('Alcoholics Anonymous')
 	#search_twitter('Error Check')
