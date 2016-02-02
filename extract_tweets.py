@@ -2,10 +2,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from unidecode import unidecode
 import retweetsAndFavExtract
-def extract_tweets(html_full):
+def extract_tweets(alltweets):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
-	soup = BeautifulSoup(html_full, "html.parser")
-	alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
 	#alltweets = soup.find_all(attrs={'role' : 'presentation','class':"original-tweet-container"})
 	for index,tweet in enumerate(alltweets):
 		#Text of tweet

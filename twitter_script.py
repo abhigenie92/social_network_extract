@@ -3,9 +3,11 @@
 #2.Fix other language profile names-DONE
 #3.Fix remove of photos thumbnails as tweets-DONE
 #4.Better way to print the progress-?
-from scrollDownHtmlCode import return_html_code
+from check import return_html_code
 from pprint import pprint
 from extract_tweets import extract_tweets
+from bs4 import BeautifulSoup
+
 #from twitter_datetimegraph import plot_date_time_graph 
 import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb,datetime
 reload(sys)
@@ -14,7 +16,7 @@ sys.setdefaultencoding("utf-8")
 def get_twitter_data(query):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	final_date=datetime.date.today()
-	start_date=dateobj = datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
+	start_date=dateobj = datetime.datetime.strptime('2006-03-24','%Y-%m-%d').date()
 	search = query.replace(" ","%20")	
 	flag=True
 	while flag:
@@ -24,14 +26,19 @@ def get_twitter_data(query):
 		if end_date > final_date:
 			end_date=(final_date+datetime.timedelta(1))
 			flag=False
+			 #https://twitter.com/search?f=tweets&q=Alcoholics%20Anonymous%20Drunk&since=2006-03-2%E2%80%8C%E2%80%8B4&until=2006-04-23&src=typd
 		url='https://twitter.com/search?q='+search+'%20since%3A'+start_date.isoformat()+'%20until%3A'+end_date.isoformat()+'&src=typd&lang=en'
+		print url	
 		html_full=return_html_code(url)
 		if html_full:
-			text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav\
-		 = (x+y for x,y in zip((text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav)\
-		 	, extract_tweets(html_full)))
+			soup = BeautifulSoup(html_full, "html.parser")
+			alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
+			if len(alltweets)> 1:
+				text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav\
+			 = (x+y for x,y in zip((text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav)\
+			 	, extract_tweets(alltweets)))
 
-		start_date=end_date-datetime.timedelta(1)
+			start_date=end_date-datetime.timedelta(1)
 	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
