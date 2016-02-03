@@ -3,7 +3,6 @@
 #2.Fix other language profile names-DONE
 #3.Fix remove of photos thumbnails as tweets-DONE
 #4.Better way to print the progress-?
-from check import return_html_code
 from pprint import pprint
 from extract_tweets import extract_tweets
 from bs4 import BeautifulSoup
@@ -12,7 +11,13 @@ from bs4 import BeautifulSoup
 import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb,datetime
 reload(sys)
 sys.setdefaultencoding("utf-8")
+driver='firefox'
+if driver =='firefox':
+	from firefox_driver_code import return_html_code
+else:
+	from check import return_html_code
 
+	
 def get_twitter_data(query):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	final_date=datetime.date.today()
