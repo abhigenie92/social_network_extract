@@ -20,16 +20,19 @@ class wait_for_more_than_n_elements_to_be_present(object):
             return False
 
 def return_html_code(url):
-    print url #added in edit 1
     vdisplay =Xvfb()
     vdisplay.start()
     driver = webdriver.Firefox()
     driver.maximize_window()
     driver.get(url)
     # initial wait for the tweets to load
+    # initial wait for the tweets to load
     wait = WebDriverWait(driver, 30)
-    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
-    # scroll down to the last tweet until there is no more tweets loaded
+    try:
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
+    except TimeoutException:
+        driver.quit()
+        return False    # scroll down to the last tweet until there is no more tweets loaded
     while True:
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         print len(tweets)  #added in edit 1
