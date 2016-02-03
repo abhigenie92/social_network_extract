@@ -32,6 +32,7 @@ def return_html_code(url):
     try:
         wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "li[data-item-id]")))
     except TimeoutException:
+        driver.quit()
         return False
     # scroll down to the last tweet until there is no more tweets loaded
     while True:
@@ -50,7 +51,7 @@ def return_html_code(url):
         except TimeoutException:
             break
     html_full_source=driver.page_source
-    driver.close()
+    driver.quit()
     #with open("check.html",'w') as f: f.write(html_full_source)
     return html_full_source
 
