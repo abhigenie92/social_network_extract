@@ -21,7 +21,7 @@ else:
 def get_twitter_data(query):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	final_date=datetime.date.today()
-	start_date=dateobj = datetime.datetime.strptime('2011-03-24','%Y-%m-%d').date()
+	start_date=dateobj = datetime.datetime.strptime('2006-03-24','%Y-%m-%d').date()
 	search = query.replace(" ","%20")	
 	flag=True
 	while flag:
@@ -34,7 +34,7 @@ def get_twitter_data(query):
 			 #https://twitter.com/search?f=tweets&q=Alcoholics%20Anonymous%20Drunk&since=2006-03-2%E2%80%8C%E2%80%8B4&until=2006-04-23&src=typd
 		url='https://twitter.com/search?q='+search+'%20since%3A'+start_date.isoformat()+'%20until%3A'+end_date.isoformat()+'&src=typd&lang=en'
 		print url	
-		html_full=return_html_code(url)
+		html_full=return_html_code(url,False)
 		if html_full:
 			soup = BeautifulSoup(html_full, "html.parser")
 			alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
