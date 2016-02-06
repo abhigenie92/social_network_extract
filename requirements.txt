@@ -5,3 +5,4 @@ selenium
 unidecode
 pyvirtualdisplay
 proxylist
+xvfbwrapper

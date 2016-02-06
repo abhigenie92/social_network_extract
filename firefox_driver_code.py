@@ -22,7 +22,14 @@ class wait_for_more_than_n_elements_to_be_present(object):
 def return_html_code(url):
     vdisplay =Xvfb()
     vdisplay.start()
+    proxy_address=random.choice(get_proxy_fastest())
+    ip,port=proxy_address.split(':')
+    pdb.set_trace()
     driver = webdriver.Firefox()
+    profile.set_preference("network.proxy.http", ip);
+    profile.addAdditionalPreference("network.proxy.http_port", port);
+    profile.set_preference("network.proxy_type", 1);
+    
     driver.maximize_window()
     driver.get(url)
     # initial wait for the tweets to load
@@ -45,3 +52,8 @@ def return_html_code(url):
     driver.close()
     vdisplay.stop()
     return html_full
+
+if __name__ == '__main__':
+    #url='https://twitter.com/search?q=Alcoholics%20Anonymous%20Drunk%20since%3A2011-01-24%20until%3A2011-02-23&src=typd&lang=en'
+    url='https://twitter.com/search?q=wtf&src=typd&lang=en'
+    return_html_code(url )
