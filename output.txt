@@ -1,3 +1,10 @@
-2006-03-24 2006-04-23
-https://twitter.com/search?q=Alcoholics%20Anonymous%20since%3A2006-03-24%20until%3A2006-04-23&src=typd&lang=en
-https://twitter.com/search?q=Alcoholics%20Anonymous%20since%3A2006-03-24%20until%3A2006-04-23&src=typd&lang=en
+[*] Your accurate external IP: 122.161.71.148
+[*] gatherproxy.com: 270 proxies
+[*] 270 unique high anonymity proxies found
+[*] Testing proxy speeds ...
+
+      Proxy           | CC  |       Domain          | Time/Errors
+--------------------------------------------------------------------
+138.185.149.246:80    | BRA | danmcinerney.org      | 0:00:02.793089
+                      |     | dnsdynamic.org        | 0:00:02.089097
+                      |     | Header check          | Passed: elite proxy

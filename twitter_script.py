@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 import sys,requests,retweetsAndFavExtract,sqlite3,os,pdb,datetime
 reload(sys)
 sys.setdefaultencoding("utf-8")
-driver='firefox'
+driver='firefox_no'
 if driver =='firefox':
 	from firefox_driver_code import return_html_code
 else:
@@ -21,11 +21,11 @@ else:
 def get_twitter_data(query):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	final_date=datetime.date.today()
-	start_date=dateobj = datetime.datetime.strptime('2006-03-24','%Y-%m-%d').date()
+	start_date=dateobj = datetime.datetime.strptime('2011-03-24','%Y-%m-%d').date()
 	search = query.replace(" ","%20")	
 	flag=True
 	while flag:
-		end_date=(start_date+datetime.timedelta(1*365/12))
+		end_date=(start_date+datetime.timedelta(2*365/12))
 		print start_date, end_date
 
 		if end_date > final_date:

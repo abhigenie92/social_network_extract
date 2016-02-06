@@ -4,4 +4,4 @@ praw
 selenium
 unidecode
 pyvirtualdisplay
-
+proxylist
