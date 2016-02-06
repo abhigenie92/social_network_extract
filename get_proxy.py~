@@ -19,11 +19,11 @@ def get_proxy():
 
 
 def get_proxy_fastest():
-    if os.path.exists('./output.txt'):
-        os.remove('./output.txt')
+    if os.path.exists('./libs/elite-proxy-finder/output.txt'):
+        os.remove('./libs/elite-proxy-finder/output.txt')
     print 'Getting proxy'
-    os.system('python ./elite-proxy-finder.py -s 10 > ./output.txt')
-    text_file = open("./output.txt", "r")
+    os.system('python ./libs/elite-proxy-finder/elite-proxy-finder.py -s 10 > ./libs/elite-proxy-finder/output.txt')
+    text_file = open("./libs/elite-proxy-finder/output.txt", "r")
     lines = text_file.readlines()
     line_nos=range(7,44,4)
     ip_addr_port=[]
