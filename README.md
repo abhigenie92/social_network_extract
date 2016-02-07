@@ -11,7 +11,7 @@ git clone https://github.com/abhigenie92/social_network_extract
 ```
 2 . Pre-requisites:
 
-Make sure to you have `python 2.7` and `PhantomJS` installed. For installing `PhantomJS` on `linux` machines use the script 'install_phantomjs.sh'.
+Make sure to you have `python 2.7` and `PhantomJS` installed. For installing `PhantomJS` on `linux` machines use the script 'install_phantomjs.sh' or refer to http://phantomjs.org/build.html. In some cases the former may not work and the later is advised.
 ```
 bash install_phantomjs.sh
 ```
