@@ -17,24 +17,56 @@ if driver =='firefox':
 else:
 	from check import return_html_code
 
+
+def search_twitter(query):
+	#initialization parameters and store_lists 2006-03-21
+	start_date=datetime.datetime.strptime('2015-03-21','%Y-%m-%d').date()
+	text_tweet_list=[];text_date_list=[];text_time_list=[];text_username_list=[];
+	text_profilename_list=[];text_retweet_list=[];text_fav_list=[]
 	
-def get_twitter_data(query):
-	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
-	final_date=datetime.date.today()
-	start_date=dateobj = datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
-	search = query.replace(" ","%20")	
 	flag=True
 	while flag:
-		end_date=(start_date+datetime.timedelta(2*365/12))
-		print start_date, end_date
+		flag,start_date,query,text_tweet,text_date,text_time,text_username\
+										,text_profilename,text_retweet,text_fav=get_twitter_data(query,start_date,True)
+		#add whatever we have
+		text_tweet_list.extend(text_tweet)
+		text_date_list.extend(text_date)
+		text_time_list.extend(text_time)
+		text_username_list.extend(text_username)
+		text_profilename_list.extend(text_profilename)
+		text_fav_list.extend(text_fav)
+	db_name=write_data_to_db(query,text_tweet_list,text_date_list,text_time_list,text_username_list,text_profilename_list,\
+		text_retweet_list,text_fav_list)
 
+	print 'Data stored at - .'+os.path.sep+'data'+os.path.sep+ db_name
+	#plot_date_time_graph(db_name,search.title().replace(" ",""))
+
+def get_twitter_data(query,start_date,debug_out=None):
+	search = query.replace(" ","%20")	
+	flag=True
+	#list of values to be returned
+	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[]
+	
+	#dates intialization
+	final_date=datetime.date.today()
+	
+	while flag:
+		#dates setting in time interval
+		end_date=(start_date+datetime.timedelta(2*365/12)) #time-gap of 2 months
 		if end_date > final_date:
 			end_date=(final_date+datetime.timedelta(1))
 			flag=False
-			 #https://twitter.com/search?f=tweets&q=Alcoholics%20Anonymous%20Drunk&since=2006-03-2%E2%80%8C%E2%80%8B4&until=2006-04-23&src=typd
+		#url generation according to dates
 		url='https://twitter.com/search?q='+search+'%20since%3A'+start_date.isoformat()+'%20until%3A'+end_date.isoformat()+'&src=typd&lang=en'
-		print url	
-		html_full=return_html_code(url,False)
+		
+		if debug_out:
+			print start_date, end_date
+			print url	
+		try:
+			html_full=return_html_code(url,False)
+		except Exception as error:
+			print error
+			break #1. Return data we have and start_date, we will start again
 		if html_full:
 			soup = BeautifulSoup(html_full, "html.parser")
 			alltweets = soup.find_all(attrs={'data-item-type' : 'tweet','class':"js-stream-item stream-item stream-item expanding-stream-item "})
@@ -42,9 +74,11 @@ def get_twitter_data(query):
 				text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav\
 			 = (x+y for x,y in zip((text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav)\
 			 	, extract_tweets(alltweets)))
-
 		start_date=end_date-datetime.timedelta(1)
-	return query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
+
+	return flag,start_date,query,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav
+
+
 
 def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_profilename,text_retweet,text_fav):
 	db_name=('twitter '+search.title().replace(" ","")+'_'+str(datetime.datetime.now())[5:19]+'.db').replace(" ","_").replace(":","-")
@@ -60,12 +94,8 @@ def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_pr
 	conn.commit()
 	conn.close()
 	return db_name
-def search_twitter(query):
-	db_name=write_data_to_db(*get_twitter_data(query))
-	print 'Data stored at - .'+os.path.sep+'data'+os.path.sep+ db_name
-	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('Alcoholics Anonymous')
+	search_twitter('Alcoholics Anonymous Drunk')
 	#search_twitter('Error Check')

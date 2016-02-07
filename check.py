@@ -52,7 +52,7 @@ def return_html_code(url,use_proxy):
     while True:       
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
-        print(number_of_tweets)
+        print(number_of_tweets),
 
         # move to the top and then to the bottom 5 times in a row
         for _ in range(5):
@@ -66,6 +66,7 @@ def return_html_code(url,use_proxy):
             break
     html_full_source=driver.page_source
     driver.quit()
+    print "_"*15
     #with open("check.html",'w') as f: f.write(html_full_source)
     return html_full_source
 
