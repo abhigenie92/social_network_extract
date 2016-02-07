@@ -1,6 +1,2 @@
 #!/bin/bash
-<<<<<<< HEAD
 python -u twitter_script.py > output.txt 2>error.txt &
-=======
-python -u twitter_script.py > output.txt 2>error.txt&
->>>>>>> dcb5296dd49c81530b0fd6cf03b487d4494c6f67
