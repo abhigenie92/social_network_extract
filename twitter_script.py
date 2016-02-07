@@ -19,8 +19,8 @@ else:
 
 
 def search_twitter(query):
-	#initialization parameters and store_lists 2006-03-21
-	start_date=datetime.datetime.strptime('2015-03-21','%Y-%m-%d').date()
+	#initialization parameters and store_lists 
+	start_date=datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
 	text_tweet_list=[];text_date_list=[];text_time_list=[];text_username_list=[];
 	text_profilename_list=[];text_retweet_list=[];text_fav_list=[]
 	
