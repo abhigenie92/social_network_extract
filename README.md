@@ -29,6 +29,7 @@ python -m pip install -r requirements.txt
 
 Use:
 ===============
+a.) as a module/library
 Note please add the directory to your search path. An example is shown below:
 ```
 import sys
@@ -44,6 +45,18 @@ Reddit:
 from reddit_script import search_reddit
 search_reddit('china disaster")
 ```
+b.) independent script
+run the `run` script from terminal
+```
+bash ./run 
+```
+The above only run for twitter script, you can alternatively add a line to run the reddit script.
+This will launch python as a background process. To check for completion, please check the output in file `output.txt`. 
+
+Output:
+===============
+
+
 All extracted content is stored in databases.
 
 Database Name Format: <social_network>_MM-DD_HH-MM-SS.db
