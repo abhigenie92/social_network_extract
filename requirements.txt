@@ -6,3 +6,4 @@ unidecode
 pyvirtualdisplay
 proxylist
 xvfbwrapper
+gevent
