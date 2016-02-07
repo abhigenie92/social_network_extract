@@ -21,7 +21,7 @@ else:
 def get_twitter_data(query):
 	text_tweet=[];text_date=[];text_time=[];text_username=[];text_profilename=[];text_retweet=[];text_fav=[];
 	final_date=datetime.date.today()
-	start_date=dateobj = datetime.datetime.strptime('2006-03-24','%Y-%m-%d').date()
+	start_date=dateobj = datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
 	search = query.replace(" ","%20")	
 	flag=True
 	while flag:

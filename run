@@ -1,2 +1,2 @@
 #!/bin/bash
-python -u twitter_script.py > output.txt &
+python -u twitter_script.py > output.txt 2>error.txt &

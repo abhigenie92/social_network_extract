@@ -1,7 +1,6 @@
 import time,os,sqlite3,pdb,random
 from get_proxy import get_proxy_fastest
 from pprint import pprint
-from proxylist import ProxyList
 from selenium.webdriver import ActionChains
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -49,8 +48,8 @@ def return_html_code(url,use_proxy):
         driver.quit()
         return False
     # scroll down to the last tweet until there is no more tweets loaded
-    while True:
-        print 'Scrolling tweets'
+    print 'Scrolling tweets'
+    while True:       
         tweets = driver.find_elements_by_css_selector("li[data-item-id]")
         number_of_tweets = len(tweets)
         print(number_of_tweets)
