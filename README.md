@@ -46,6 +46,7 @@ from reddit_script import search_reddit
 search_reddit('china disaster")
 ```
 b.) independent script
+
 run the `run` script from terminal
 ```
 bash ./run 
