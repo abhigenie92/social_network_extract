@@ -9,6 +9,11 @@ Installation:
 ```
 git clone https://github.com/abhigenie92/social_network_extract
 ```
+or
+```
+git clone git://github.com/abhigenie92/social_network_extract.git
+
+```
 2 . Pre-requisites:
 
 Make sure to you have `python 2.7` and `PhantomJS` installed. For installing `PhantomJS` on `linux` machines use the script 'install_phantomjs.sh' or refer to http://phantomjs.org/build.html. In some cases the former may not work and the later is advised.
