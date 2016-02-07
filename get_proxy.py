@@ -18,19 +18,32 @@ def get_proxy():
 
 
 
-def get_proxy_fastest():
-    if os.path.exists('./output.txt'):
-        os.remove('./output.txt')
+def get_proxy_fastest_more_than_one():
+    if os.path.exists('./proxy_details.txt'):
+        os.remove('./proxy_details.txt')
     print 'Getting proxy'
-    os.system('python ./elite-proxy-finder.py -s 10 > ./output.txt')
+    os.system('python ./elite-proxy-finder.py -s 10 > ./proxy_details.txt')
     text_file = open("./output.txt", "r")
     lines = text_file.readlines()
     line_nos=range(7,44,4)
     ip_addr_port=[]
     for line in line_nos:
         ip_addr_port.append(lines[line].split('|')[0].replace(' ',''))
-    pdb.set_trace()
     return ip_addr_port
+
+def get_proxy_fastest():
+    if os.path.exists('./proxy_details.txt'):
+        os.remove('./proxy_details.txt')
+    print 'Getting proxy'
+    os.system('python ./elite-proxy-finder.py -s 1 > ./proxy_details.txt')
+    text_file = open("./proxy_details.txt", "r")
+    lines = text_file.readlines()
+    line=7
+    try:
+    	ip_addr_port=lines[line].split('|')[0].replace(' ','')
+    	return [ip_addr_port]
+    except Exception:
+        return False
 
 if __name__ == '__main__':
     get_proxy_fastest()
