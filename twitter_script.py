@@ -19,8 +19,8 @@ else:
 
 
 def search_twitter(query):
-	#initialization parameters and store_lists 
-	start_date=datetime.datetime.strptime('2006-03-21','%Y-%m-%d').date()
+	#initialization parameters and store_lists 2006-03-21
+	start_date=datetime.datetime.strptime('2016-02-01','%Y-%m-%d').date()
 	text_tweet_list=[];text_date_list=[];text_time_list=[];text_username_list=[];
 	text_profilename_list=[];text_retweet_list=[];text_fav_list=[]
 	
@@ -35,9 +35,10 @@ def search_twitter(query):
 		text_username_list.extend(text_username)
 		text_profilename_list.extend(text_profilename)
 		text_fav_list.extend(text_fav)
+		text_retweet_list.extend(text_retweet)
 	db_name=write_data_to_db(query,text_tweet_list,text_date_list,text_time_list,text_username_list,text_profilename_list,\
 		text_retweet_list,text_fav_list)
-
+	#pdb.set_trace()
 	print 'Data stored at - .'+os.path.sep+'data'+os.path.sep+ db_name
 	#plot_date_time_graph(db_name,search.title().replace(" ",""))
 
