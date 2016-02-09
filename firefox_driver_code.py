@@ -20,7 +20,7 @@ class wait_for_more_than_n_elements_to_be_present(object):
         except StaleElementReferenceException:
             return False
 
-def return_html_code(url):
+def return_html_code(url,proxy_use):
     vdisplay =Xvfb()
     vdisplay.start()
     proxy_address_list=get_proxy_fastest()
