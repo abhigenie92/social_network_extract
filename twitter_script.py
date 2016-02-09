@@ -97,5 +97,5 @@ def write_data_to_db(search,text_tweet,text_date,text_time,text_username,text_pr
 if __name__ == '__main__':
 	directory='data' # stores the output
 	if not os.path.exists(directory): os.makedirs(directory)
-	search_twitter('Alcoholics Anonymous Drunk')
+	search_twitter('Alcoholics Anonymous')
 	#search_twitter('Error Check')
